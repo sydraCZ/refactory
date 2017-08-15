@@ -23,31 +23,44 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;                     // 總消費金額
-        int frequentRenterPoints = 0;       // 常客積點
         Enumeration rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
 
-        while(rentals.hasMoreElements()){
+        while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement(); // 取得一筆租借記錄
-
-            // add frequent renter points（累加 常客積點）
-            frequentRenterPoints ++;
-            // add bonus for a two day new release rental
-            if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
-                    each.getDaysRented() > 1)
-                frequentRenterPoints ++;
 
             // show figures for this rental（顯示此筆租借資料）
             result += "\t" + each.getMovie().getTitle() + "\t" +
                     String.valueOf(each.getCharge()) + "\n";
-            totalAmount += each.getCharge();
         }
 
         // add footer lines（結尾列印）
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) +
+        result += "Amount owed is " + String.valueOf(getTotalAmount()) + "\n";
+        result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) +
                 " frequent renter points";
         return result;
+    }
+
+    private double getTotalAmount() {
+        double totalAmount = 0;                     // 總消費金額
+        Enumeration rentals = _rentals.elements();
+
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement(); // 取得一筆租借記錄
+            totalAmount += each.getCharge();
+        }
+        return totalAmount;
+    }
+
+    private double getTotalFrequentRenterPoints() {
+        int frequentRenterPoints = 0;       // 常客積點
+        Enumeration rentals = _rentals.elements();
+
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement(); // 取得一筆租借記錄
+            // add frequent renter points（累加 常客積點）
+            frequentRenterPoints += each.getFrequentRenterPoints();
+        }
+        return frequentRenterPoints;
     }
 }

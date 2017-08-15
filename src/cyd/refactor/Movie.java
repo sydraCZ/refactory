@@ -5,8 +5,6 @@ package cyd.refactor;
  */
 //  Refactoring, a First Example, step1, (~p5)
 
-import java.util.*;
-
 public class Movie {
     public static final int CHILDREN = 2;
     public static final int REGULAR = 0;
@@ -33,5 +31,33 @@ public class Movie {
     }
 
 
+    public double getCharge(int daysRented) {
+        double result = 0;
+        switch(_priceCode){   // 取得影片出租價格
+            case Movie.REGULAR:                     // 普通片
+                result += 2;
+                if(daysRented>2)
+                    result += (daysRented-2)*1.5;
+                break;
+
+            case Movie.NEW_RELEASE:         // 新片
+                result += daysRented*3;
+                break;
+
+            case Movie.CHILDREN:           // 兒童片
+                result += 1.5;
+                if(daysRented>3)
+                    result += (daysRented-3)*1.5;
+                break;
+        }
+        return result;
+    }
+    public int getFrequentRenterPoints(int daysRented){
+        // add bonus for a two day new release rental
+        if ((_priceCode == Movie.NEW_RELEASE) && daysRented > 1)
+            return 2;
+        else
+            return 1;
+    }
 }
 
