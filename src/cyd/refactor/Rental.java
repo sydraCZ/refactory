@@ -3,7 +3,7 @@ package cyd.refactor;
 /**
  * Created by Administrator on 2017/8/15.
  */
-class Rental {
+public class Rental {
     private Movie _movie;         // 影片
     private int _daysRented;              // 租期
 
