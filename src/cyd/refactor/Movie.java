@@ -50,15 +50,10 @@ public class Movie {
     }
 
     public int getFrequentRenterPoints(int daysRented){
-        _priceCode.getFrequentRenterPoints(daysRented);
+        return _priceCode.getFrequentRenterPoints(daysRented);
     }
-
 }
 
-
-/**
- * Created by sydneychen on 17/8/17.
- */
 abstract class Price {
 
     abstract int getPriceCode();
